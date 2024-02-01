@@ -4,12 +4,11 @@ from functools import lru_cache
 import matplotlib.pyplot as plt
 
 
-#empty arrays for x and y plot values
+#empty lists for x and y plot values
 x = []
 y = []
 
 
-#timer decorator is offset by one iteration - kicks in on second call??
 def timer(func):
     def wrapper(*args, **kwargs):
         start = time.process_time() #log start time
@@ -17,9 +16,10 @@ def timer(func):
         stop = time.process_time() #log end time
         elapsed = stop - start #elapsed time (difference between stop and start)
 
-        y.append(elapsed) #append elapsed time to y value array
+        x.append(args[0]) #append n (args) to x value list
+        y.append(elapsed) #append elapsed time to y value list
 
-        print(f"Finished in {elapsed:.8f}s: f({args[0]}) -> {result}") #print time elapsed
+        print(f"Finished in {elapsed:.8f}s: f({args[0]}) -> {result}") ##print time elapsed, f(n), and fibonacci number
         
         return result
     
@@ -33,9 +33,7 @@ def fib(n: int) -> int:
     if n <= 1: #n is 0 or 1
         result = n #fibonacci number equals n
     else:
-        result = fib(n-1) + fib(n-2) #fibonacci number equals previous two numbers
-
-    x.append(n) #append n to x value array
+        result = fib(n-1) + fib(n-2) #fibonacci number equals sum of previous two numbers
     
     return result
 
